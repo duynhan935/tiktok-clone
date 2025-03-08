@@ -27,7 +27,7 @@ const publicRoutes = [
 ];
 // Những router dành cho những trang không cần đăng nhập
 
-const privateRoutes = {};
+const privateRoutes = [];
 // Những router dành cho những trang cần đăng nhập
 
 export { publicRoutes, privateRoutes };
