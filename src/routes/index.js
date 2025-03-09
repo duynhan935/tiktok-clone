@@ -16,7 +16,8 @@ const publicRoutes = [
         component: Following,
     },
     {
-        path: "/profile",
+        path: "/user/:nickname",
+        // nghĩa là những trang có đuôi là @... dấu : là có thể thay đổi tùy ý
         component: Profile,
     },
     {
