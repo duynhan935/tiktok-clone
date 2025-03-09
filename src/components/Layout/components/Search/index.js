@@ -4,7 +4,7 @@ import { faCircleXmark, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import HeadlessTippy from "@tippyjs/react/headless";
 import "tippy.js/dist/tippy.css";
 import { useState, useEffect, useRef } from "react";
-
+import { useDebounce } from "~/hooks";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 import styles from "./Search.module.scss";
 import AccountItem from "~/components/AccountItem";
@@ -18,17 +18,24 @@ function Search() {
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
 
+    // Áp dụng useDebounce
+    const debounced = useDebounce(searchValue, 500);
+    // Gỉải thích
+    // Lần chạy đầu tiên cái debounce sẽ ra chuỗi rỗng
+    // Lần 2 ví dụ gõ 1 chữ 'h', value được truyền vào nhưng sẽ bị delay một khoảng nên nó vẫn sẽ trả về chuỗi rỗng
+    // Đến lần 3,4,5 gì thì nó vẫn sẽ bị delay và trả về chuỗi rỗng, chỉ khi ta dừng nhập và sau khi hết thời gian delay nó sẽ trả về kết quả sau cùng
+
     const inputRef = useRef();
 
     useEffect(() => {
-        if (!searchValue.trim()) {
+        if (!debounced.trim()) {
             setSearchResult([]);
             return;
         }
 
         setLoading(true);
 
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
             // encodeURIComponent mã hóa dữ liệu lại cho nó đừng có trùng với cái parameter
             .then((res) => {
                 return res.json();
@@ -40,7 +47,7 @@ function Search() {
             .catch(() => {
                 setLoading(false);
             });
-    }, [searchValue]);
+    }, [debounced]);
 
     const handleClear = () => {
         setSearchValue("");
