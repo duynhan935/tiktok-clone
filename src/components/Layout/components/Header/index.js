@@ -20,6 +20,8 @@ import Menu from "~/components/Popper/Menu";
 import { InboxIcon, MessageIcon, UploadIcon } from "~/components/Icons";
 import Image from "~/components/Image";
 import Search from "../Search";
+import { Link } from "react-router-dom";
+import routesConfig from "~/config/routes";
 
 const cx = classNames.bind(styles);
 
@@ -95,7 +97,9 @@ function Header() {
     return (
         <header className={cx("wrapper")}>
             <div className={cx("inner")}>
-                <img src={images.logo} alt="Tiktok" />
+                <Link to={routesConfig.home} className={cx("logo-link")}>
+                    <img src={images.logo} alt="Tiktok" />
+                </Link>
                 {/* Search */}
 
                 <Search />
@@ -130,11 +134,9 @@ function Header() {
                     <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {currentUser ? (
                             <Image
-                                src="https://scontent.fsgn2-7.fna.fbcdn.net/v/t39.30808-1/468957911_1289710888730506_470623878030858958_n.jpg?stp=cp0_dst-jpg_s40x40_tt6&_nc_cat=100&ccb=1-7&_nc_sid=e99d92&_nc_ohc=asv3dpABVs4Q7kNvgGOAzmB&_nc_oc=AdhrKVezTxYUrJTQPXM578e8iKakZb5Le99Ospv28uRLrQSQBcq9JAvYu5UxaGT2j5VL8MSOHGQr2f3-eM7dR6Qt&_nc_zt=24&_nc_ht=scontent.fsgn2-7.fna&_nc_gid=AhpCQq9xUIBSb-ifPhm9vm0&oh=00_AYGSJKf5hTc_Tkx5a0CFHho3O1iq1jA7kOOYWGbAcVA6Ng&oe=67D0AA0F"
-                                // src="aa"
+                                src="https://scontent.fsgn2-7.fna.fbcdn.net/v/t39.30808-1/468957911_1289710888730506_470623878030858958_n.jpg?stp=cp0_dst-jpg_s40x40_tt6&_nc_cat=100&ccb=1-7&_nc_sid=e99d92&_nc_ohc=GNTNLqwZSuoQ7kNvgHVkIDs&_nc_oc=AdiQf5IXqb7mqmqKQRh17_WxTXqbKMBBkVfZlvaviQKpMFCZgBJyAEPk0JknnQLdPJn164G5qC-RKny93au_Rt7G&_nc_zt=24&_nc_ht=scontent.fsgn2-7.fna&_nc_gid=A9_PH1Yb1kK15ov8Cs98K1T&oh=00_AYFLLuXGnJZmN2E8QcdXfm0hd4XcbvexsROENG8rfpAasw&oe=67D7418F"
                                 className={cx("user-avatar")}
                                 alt="Tran Duy Nhan"
-                                fallback="https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-1/326530502_1142370256453171_3882624507058146724_n.jpg?stp=cp0_dst-jpg_s40x40_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e99d92&_nc_ohc=4Suwz4S-p4MQ7kNvgEFyfjd&_nc_oc=AdgOlcq3cS3E21v-lAkvBzpYyIHWzqEInCQYaSmKzc0ncPs-vUzEfhRYg4N0hEgYigQ74D9tHcyD5kRSH6r842R-&_nc_zt=24&_nc_ht=scontent.fsgn2-5.fna&_nc_gid=AnzcBT4ixG9GMyIP15lKUGD&oh=00_AYFu1oFMo5mx-1_mH4CjXkt4ED-uTdcEDi_5vMUQJq2Fvg&oe=67D0C615"
                             />
                         ) : (
                             <button className={cx("more-btn")}>
