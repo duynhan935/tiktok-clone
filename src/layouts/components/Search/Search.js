@@ -16,11 +16,11 @@ const cx = classNames.bind(styles);
 function Search() {
     const [searchValue, setSearchValue] = useState("");
     const [searchResult, setSearchResult] = useState([]);
-    const [showResult, setShowResult] = useState(true);
+    const [showResult, setShowResult] = useState(false);
     const [loading, setLoading] = useState(false);
 
     // Áp dụng useDebounce
-    const debounced = useDebounce(searchValue, 500);
+    const debouncedValue = useDebounce(searchValue, 500);
     // Gỉải thích
     // Lần chạy đầu tiên cái debounce sẽ ra chuỗi rỗng
     // Lần 2 ví dụ gõ 1 chữ 'h', value được truyền vào nhưng sẽ bị delay một khoảng nên nó vẫn sẽ trả về chuỗi rỗng
@@ -29,7 +29,7 @@ function Search() {
     const inputRef = useRef();
 
     useEffect(() => {
-        if (!debounced.trim()) {
+        if (!debouncedValue.trim()) {
             setSearchResult([]);
             return;
         }
@@ -37,14 +37,14 @@ function Search() {
         const fetchApi = async () => {
             setLoading(true);
 
-            const result = await searchServices.search(debounced);
+            const result = await searchServices.search(debouncedValue);
             setSearchResult(result);
 
             setLoading(false);
         };
 
         fetchApi();
-    }, [debounced]);
+    }, [debouncedValue]);
 
     const handleClear = () => {
         setSearchValue("");
